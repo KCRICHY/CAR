@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>My bookings | Gachok</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header id="site-header" class="site-header"></header>
+
+<section class="page-hero">
+  <div class="container">
+    <div class="breadcrumb">Trip history</div>
+    <h1 style="font-size:2rem;">My bookings</h1>
+    <p>Every ride you've booked while signed in, stored locally in this browser.</p>
+  </div>
+</section>
+
+<div class="container" style="padding:40px 24px;">
+  <div id="signedOut" class="empty-state" style="display:none;">
+    <h3>Sign in to see your bookings</h3>
+    <p>Your trips are tied to your account so you can find them again on any visit.</p>
+    <a href="login.html" class="btn btn-primary">Sign in</a>
+  </div>
+  <div id="bookingsList"></div>
+</div>
+
+<footer id="site-footer" class="site-footer"></footer>
+
+<script src="js/data.js"></script>
+<script src="js/store.js"></script>
+<script src="js/nav.js"></script>
+<script src="js/bookings.js"></script>
+</body>
+</html>

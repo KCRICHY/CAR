@@ -1,0 +1,2241 @@
+/* =========================================================================
+   Gachok — design tokens
+   Display: Space Grotesk · Body: IBM Plex Sans · Data/mono: IBM Plex Mono
+   ========================================================================= */
+:root {
+  --ink: #0B1B33;
+  --ink-soft: #16294A;
+  --route-blue: #143E75;
+  --route-blue-light: #1E56A0;
+  --signal-cyan: #2FB6E0;
+  --signal-cyan-dim: #1B8DAE;
+  --paper: #F5F7FA;
+  --paper-dim: #E9EEF5;
+  --white: #FFFFFF;
+  --slate: #55617A;
+  --slate-light: #8592AC;
+  --line: #D8E0EC;
+  --line-dark: #2A3E63;
+  --amber: #F2A94E;
+  --good: #2E9E6B;
+  --bad: #D65B5B;
+
+  --font-display: "Space Grotesk", "Segoe UI", sans-serif;
+  --font-body: "IBM Plex Sans", "Segoe UI", sans-serif;
+  --font-mono: "IBM Plex Mono", "Courier New", monospace;
+
+  --radius-s: 6px;
+  --radius-m: 12px;
+  --radius-l: 20px;
+  --shadow-card: 0 1px 2px rgba(11,27,51,0.06), 0 8px 24px rgba(11,27,51,0.06);
+  --shadow-pop: 0 12px 32px rgba(11,27,51,0.18);
+  --container: 1180px;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; }
+}
+
+body {
+  overflow-x: hidden;
+  margin: 0;
+  font-family: var(--font-body);
+  color: var(--ink);
+  background: var(--paper);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4 { font-family: var(--font-display); margin: 0 0 0.4em; line-height: 1.12; letter-spacing: -0.01em; }
+h1 { font-size: clamp(2.1rem, 4vw, 3.4rem); font-weight: 600; }
+h2 { font-size: clamp(1.6rem, 2.6vw, 2.3rem); font-weight: 600; }
+h3 { font-size: 1.25rem; font-weight: 600; }
+p { margin: 0 0 1em; color: var(--slate); }
+a { color: inherit; text-decoration: none; }
+ul { margin: 0; padding: 0; list-style: none; }
+button { font-family: inherit; cursor: pointer; }
+input, select { font-family: inherit; }
+
+.mono { font-family: var(--font-mono); }
+.container { max-width: var(--container); margin: 0 auto; padding: 0 24px; }
+.section { padding: 88px 0; }
+.section--tight { padding: 56px 0; }
+.section--dark { background: var(--ink); color: var(--white); }
+.section--dark p { color: #AAB8D1; }
+.section--dark h2, .section--dark h3 { color: var(--white); }
+.section--alt { background: var(--white); }
+
+.eyebrow {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--signal-cyan-dim); margin-bottom: 14px;
+}
+.section--dark .eyebrow { color: var(--signal-cyan); }
+.eyebrow::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--signal-cyan); }
+
+.lede { max-width: 640px; font-size: 1.05rem; }
+
+:focus-visible { outline: 2px solid var(--signal-cyan); outline-offset: 3px; }
+
+/* --- buttons ------------------------------------------------------------ */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  padding: 13px 24px; border-radius: 999px; border: 1px solid transparent;
+  font-weight: 600; font-size: 0.94rem; transition: transform .15s ease, background .15s ease, box-shadow .15s ease;
+  white-space: nowrap;
+}
+.btn:active { transform: translateY(1px); }
+.btn-primary { background: var(--route-blue); color: var(--white); }
+.btn-primary:hover { background: var(--route-blue-light); box-shadow: 0 8px 20px rgba(20,62,117,0.28); }
+.btn-accent { background: var(--signal-cyan); color: var(--ink); }
+.btn-accent:hover { box-shadow: 0 8px 20px rgba(47,182,224,0.35); }
+.btn-ghost { background: transparent; color: var(--white); border-color: rgba(255,255,255,0.35); }
+.btn-ghost:hover { border-color: var(--white); }
+.btn-outline { background: transparent; color: var(--route-blue); border-color: var(--line); }
+.btn-outline:hover { border-color: var(--route-blue); }
+.btn-block { width: 100%; }
+.btn-sm { padding: 8px 16px; font-size: 0.85rem; }
+.btn-danger { background: var(--bad); color: var(--white); }
+.btn[disabled] { opacity: 0.5; cursor: not-allowed; }
+
+/* --- header --------------------------------------------------------------*/
+.site-header {
+  position: sticky; top: 0; z-index: 40;
+  background: rgba(11,27,51,0.92); backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--line-dark);
+}
+.site-header .container { display: flex; align-items: center; gap: 20px; min-width: 0; min-height: 72px; }
+.brand { display: inline-flex; align-items: center; gap: 10px; min-width: 0; white-space: nowrap; font-family: var(--font-display); font-weight: 700; font-size: 1.15rem; color: var(--white); }
+.brand-mark { width: 48px; height: 48px; flex: 0 0 48px; object-fit: contain; display: block; }
+.nav-links { display: flex; gap: 4px; margin-right: auto; }
+.nav-links a {
+  padding: 9px 14px; border-radius: 999px; color: #C7D2E8; font-size: 0.92rem; font-weight: 500;
+  transition: background .15s ease, color .15s ease;
+}
+.nav-links a:hover, .nav-links a.active { background: rgba(255,255,255,0.08); color: var(--white); }
+.header-actions { display: flex; align-items: center; justify-content: flex-end; gap: 10px; min-width: 0; flex-wrap: wrap; }
+.header-user { color: #C7D2E8; font-size: 0.88rem; margin-right: 6px; }
+.nav-toggle { display: none; }
+
+@media (max-width: 860px) {
+  .site-header .container { gap: 10px; min-height: 64px; padding-top: 8px; padding-bottom: 8px; }
+  .nav-links { display: none; }
+  .header-actions .btn-outline { display: none; }
+  .header-actions .btn-accent { display: none; }
+  .header-user { margin-right: 0; }
+  .nav-toggle { display: inline-flex; flex: 0 0 auto; background: transparent; border: 1px solid var(--line-dark); color: var(--white); border-radius: var(--radius-s); padding: 8px 12px; }
+}
+
+@media (max-width: 520px) {
+  .brand { font-size: 1rem; gap: 7px; }
+  .brand-mark { width: 42px; height: 42px; flex-basis: 42px; }
+  .header-user { display: none; }
+  .header-actions .btn-sm { padding: 7px 12px; }
+  .nav-toggle { padding: 7px 10px; }
+}
+
+/* --- hero: transit-line signature ---------------------------------------*/
+.hero {
+  background: 
+  linear-gradient(180deg, rgba(11,27,51,0.88) 0%, rgba(11,27,51,0.96) 100%),
+  url("on the road.jpg") center/cover no-repeat;
+}
+.hero-grid { display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 56px; align-items: center; padding-bottom: 64px; }
+@media (max-width: 940px) { .hero-grid { grid-template-columns: 1fr; } }
+.hero h1 { color: var(--white); }
+.hero .lede { color: #B7C4DE; }
+.hero-ctas { display: flex; gap: 12px; margin-top: 30px; flex-wrap: wrap; }
+.hero-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; margin-top: 56px; border-top: 1px solid var(--line-dark); }
+.hero-stat { padding: 22px 20px 26px; border-right: 1px solid var(--line-dark); }
+.hero-stat:last-child { border-right: none; }
+.hero-stat-num { font-family: var(--font-mono); font-size: 1.7rem; font-weight: 600; color: var(--signal-cyan); }
+.hero-stat-label { font-size: 0.78rem; color: #8FA0C4; margin-top: 4px; }
+@media (max-width: 700px) { .hero-stats { grid-template-columns: repeat(2, 1fr); } .hero-stat:nth-child(2) { border-right: none; } }
+
+/* Route diagram typography: restore the original Gachok fonts exactly.
+   Body/content text uses IBM Plex Sans; data/route values use IBM Plex Mono. */
+.route-diagram,
+.route-diagram * {
+  font-family: var(--font-body);
+}
+.route-diagram .route-diagram-badge,
+.route-diagram .route-diagram-clock,
+.route-diagram .route-endpoint-code,
+.route-diagram .route-diagram-meta strong {
+  font-family: 'Times New Roman', Times, serif;
+}
+
+/* Route line diagram: origin pin -> pulsing vehicle -> destination pin */
+.route-diagram {
+  background: var(--ink-soft); border: 1px solid var(--line-dark); border-radius: var(--radius-l);
+  padding: 28px; position: relative;
+}
+.route-diagram-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 22px; }
+.route-diagram-badge {
+  font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--signal-cyan); display: flex; align-items: center; gap: 6px;
+}
+.route-diagram-badge::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--good); box-shadow: 0 0 0 3px rgba(46,158,107,0.25); animation: pulse-dot 1.8s infinite; }
+@keyframes pulse-dot { 0%,100% { box-shadow: 0 0 0 3px rgba(46,158,107,0.25);} 50% { box-shadow: 0 0 0 6px rgba(46,158,107,0.08);} }
+.route-diagram-clock { font-family: var(--font-mono); font-size: 0.78rem; color: #8FA0C4; }
+
+.route-line-svg { width: 100%; height: auto; display: block; margin: 8px 0 18px; }
+.route-line-path { stroke: var(--line-dark); stroke-width: 3; fill: none; }
+.route-line-progress { stroke: var(--signal-cyan); stroke-width: 3; fill: none; stroke-dasharray: 240; stroke-dashoffset: 240; animation: draw-route 3.2s ease-in-out infinite; }
+@keyframes draw-route { 0% { stroke-dashoffset: 240; } 45%,55% { stroke-dashoffset: 0; } 100% { stroke-dashoffset: -240; } }
+.route-vehicle-dot { fill: var(--signal-cyan); filter: drop-shadow(0 0 6px rgba(47,182,224,0.9)); offset-path: path("M8,60 C 140,10 300,110 432,55"); animation: travel 3.2s ease-in-out infinite; }
+@keyframes travel { 0% { offset-distance: 0%; opacity: 0; } 6% { opacity: 1; } 94% { opacity: 1; } 100% { offset-distance: 100%; opacity: 0; } }
+
+.route-endpoints { display: flex; justify-content: space-between; margin-top: -6px; }
+.route-endpoint-code { font-family: var(--font-mono); font-size: 1.4rem; font-weight: 600; color: var(--white); }
+.route-endpoint-city { font-size: 0.82rem; color: #8FA0C4; }
+.route-endpoint.end { text-align: right; }
+
+.route-diagram-meta { display: flex; gap: 22px; margin-top: 22px; padding-top: 18px; border-top: 1px solid var(--line-dark); flex-wrap: wrap; }
+.route-diagram-meta div { font-size: 0.8rem; color: #8FA0C4; }
+.route-diagram-meta strong { display: block; color: var(--white); font-family: var(--font-mono); font-size: 0.95rem; margin-top: 2px; }
+
+/* --- search widget --------------------------------------------------------*/
+.search-card {
+  background: var(--white); border-radius: var(--radius-l); box-shadow: var(--shadow-pop);
+  padding: 28px; margin-top: -64px; position: relative; z-index: 5;
+}
+.search-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 14px; align-items: end;
+}
+@media (max-width: 700px) { .search-grid { grid-template-columns: 1fr 1fr; } }
+.field { display: flex; flex-direction: column; gap: 6px; }
+.field label { font-size: 0.76rem; font-weight: 600; color: var(--slate); text-transform: uppercase; letter-spacing: 0.06em; }
+.field select, .field input {
+  padding: 12px 14px; border: 1px solid var(--line); border-radius: var(--radius-s); font-size: 0.94rem; color: var(--ink);
+  background: var(--paper);
+}
+.field select:focus, .field input:focus { border-color: var(--route-blue); }
+.field-swap { display: flex; align-items: flex-end; padding-bottom: 2px; }
+.swap-btn { background: var(--paper-dim); border: 1px solid var(--line); border-radius: 50%; width: 38px; height: 38px; display: flex; align-items: center; justify-content: center; color: var(--route-blue); }
+.swap-btn:hover { background: var(--paper); }
+
+.stepper { display: flex; align-items: center; border: 1px solid var(--line); border-radius: var(--radius-s); overflow: hidden; }
+.stepper button { background: var(--paper-dim); border: none; width: 34px; height: 40px; font-size: 1rem; color: var(--route-blue); }
+.stepper button:hover { background: var(--paper); }
+.stepper span { flex: 1; text-align: center; font-family: var(--font-mono); font-size: 0.9rem; }
+.pax-note { font-size: 0.76rem; color: var(--slate-light); grid-column: 1 / -1; margin-top: -6px; }
+
+/* --- cards / routes / fleet ------------------------------------------------*/
+.grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+.grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+@media (max-width: 980px) { .grid-4, .grid-3 { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 620px) { .grid-4, .grid-3, .grid-2 { grid-template-columns: 1fr; } }
+
+.section-head { display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; margin-bottom: 36px; flex-wrap: wrap; }
+.section-head .lede { margin-bottom: 0; }
+
+.route-card {
+  background: var(--white); border: 1px solid var(--line); border-radius: var(--radius-m); overflow: hidden;
+  transition: box-shadow .18s ease, transform .18s ease;
+}
+.route-card:hover { box-shadow: var(--shadow-card); transform: translateY(-2px); }
+.route-card-top { background: var(--route-blue); color: var(--white); padding: 16px 18px; position: relative; }
+.route-tag { font-family: var(--font-mono); font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.08em; background: rgba(255,255,255,0.16); padding: 3px 9px; border-radius: 999px; display: inline-block; margin-bottom: 8px; }
+.route-card-body { padding: 18px; }
+.route-pair { display: flex; align-items: center; gap: 10px; font-family: var(--font-mono); font-weight: 600; font-size: 1.05rem; }
+.route-pair .arrow { color: var(--slate-light); font-weight: 400; }
+.route-sub { font-size: 0.82rem; color: var(--slate); margin: 6px 0 14px; }
+.route-price-row { display: flex; justify-content: space-between; align-items: center; }
+.route-price-label { font-size: 0.72rem; color: var(--slate-light); text-transform: uppercase; letter-spacing: 0.05em; }
+.route-price { font-family: var(--font-mono); font-size: 1.2rem; font-weight: 600; color: var(--ink); }
+
+.fleet-tabs { display: flex; gap: 8px; margin-bottom: 30px; flex-wrap: wrap; }
+.fleet-tab { padding: 10px 18px; border-radius: 999px; border: 1px solid var(--line); font-size: 0.88rem; font-weight: 600; color: var(--slate); background: var(--white); }
+.fleet-tab.active { background: var(--ink); color: var(--white); border-color: var(--ink); }
+
+.fleet-panel { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; background: var(--white); border: 1px solid var(--line); border-radius: var(--radius-l); padding: 40px; }
+@media (max-width: 860px) { .fleet-panel { grid-template-columns: 1fr; padding: 26px; } }
+.vehicle-glyph { aspect-ratio: 16/10; border-radius: var(--radius-m); background: linear-gradient(135deg, var(--route-blue) 0%, var(--ink) 100%); display: flex; align-items: center; justify-content: center; }
+.vehicle-glyph svg { width: 62%; }
+.fleet-spec-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-top: 22px; }
+.fleet-spec { border-top: 1px solid var(--line); padding-top: 10px; }
+.fleet-spec-label { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--slate-light); }
+.fleet-spec-value { font-family: var(--font-mono); font-weight: 600; margin-top: 3px; }
+.check-list li { position: relative; padding-left: 22px; margin-bottom: 8px; font-size: 0.92rem; color: var(--slate); }
+.check-list li::before { content: "✓"; position: absolute; left: 0; color: var(--signal-cyan-dim); font-weight: 700; }
+
+/* --- fare calculator -------------------------------------------------------*/
+.calc-panel { display: grid; grid-template-columns: 1fr 1fr; gap: 0; border: 1px solid var(--line); border-radius: var(--radius-l); overflow: hidden; background: var(--white); }
+@media (max-width: 860px) { .calc-panel { grid-template-columns: 1fr; } }
+.calc-inputs { padding: 36px; border-right: 1px solid var(--line); }
+@media (max-width: 860px) { .calc-inputs { border-right: none; border-bottom: 1px solid var(--line); } }
+.calc-group { margin-bottom: 26px; }
+.calc-group-label { display: flex; justify-content: space-between; font-size: 0.86rem; font-weight: 600; margin-bottom: 8px; }
+.calc-group-label span.value { font-family: var(--font-mono); color: var(--route-blue); }
+input[type="range"] { width: 100%; accent-color: var(--route-blue); }
+.range-ticks { display: flex; justify-content: space-between; font-size: 0.7rem; color: var(--slate-light); margin-top: 4px; }
+.chip-row { display: flex; gap: 8px; flex-wrap: wrap; }
+.chip { padding: 8px 14px; border-radius: 999px; border: 1px solid var(--line); font-size: 0.84rem; background: var(--paper); color: var(--slate); }
+.chip.active { background: var(--route-blue); color: var(--white); border-color: var(--route-blue); }
+
+.calc-output { padding: 36px; background: var(--ink); color: var(--white); }
+.calc-line { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px dashed var(--line-dark); font-size: 0.9rem; }
+.calc-line span:first-child { color: #AAB8D1; }
+.calc-line.total { border-bottom: none; padding-top: 18px; font-family: var(--font-mono); font-size: 1.35rem; font-weight: 700; }
+.calc-line.total span:first-child { color: var(--white); font-family: var(--font-body); font-size: 0.9rem; font-weight: 500; }
+.calc-foot { margin-top: 18px; font-size: 0.76rem; color: #8FA0C4; }
+
+/* calc-line reused inside light .panel contexts (booking summary, manage results) */
+.panel .calc-line { border-bottom: 1px dashed var(--line); }
+.panel .calc-line span:first-child { color: var(--slate); }
+.panel .calc-line.total { border-bottom: none; color: var(--ink); }
+.panel .calc-line.total span:first-child { color: var(--ink); }
+
+/* --- testimonials / faq ----------------------------------------------------*/
+.quote-card { background: var(--white); border: 1px solid var(--line); border-radius: var(--radius-m); padding: 26px; display: flex; flex-direction: column; height: 100%; }
+.quote-mark { font-family: var(--font-display); font-size: 2.2rem; color: var(--signal-cyan-dim); line-height: 1; margin-bottom: 6px; }
+.quote-title { font-weight: 600; margin-bottom: 10px; }
+.quote-body { flex: 1; font-size: 0.92rem; }
+.quote-person { display: flex; align-items: center; gap: 12px; margin-top: 12px; }
+.avatar { width: 40px; height: 40px; border-radius: 50%; background: var(--route-blue); color: var(--white); display: flex; align-items: center; justify-content: center; font-family: var(--font-mono); font-weight: 600; font-size: 0.82rem; flex-shrink: 0; }
+.quote-name { font-weight: 600; font-size: 0.88rem; }
+.quote-role { font-size: 0.78rem; color: var(--slate-light); }
+
+.faq-item { border-bottom: 1px solid var(--line); }
+.faq-q { width: 100%; text-align: left; background: none; border: none; padding: 20px 4px; display: flex; justify-content: space-between; align-items: center; font-family: var(--font-display); font-size: 1.02rem; font-weight: 600; color: var(--ink); }
+.faq-q .icon { transition: transform .2s ease; color: var(--route-blue); font-size: 1.2rem; }
+.faq-item.open .faq-q .icon { transform: rotate(45deg); }
+.faq-a { max-height: 0; overflow: hidden; transition: max-height .25s ease; }
+.faq-item.open .faq-a { max-height: 260px; }
+.faq-a p { padding: 0 4px 20px; }
+
+/* --- demo credentials -------------------------------------------------------*/
+.demo-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+@media (max-width: 700px) { .demo-grid { grid-template-columns: 1fr; } }
+.demo-card { background: var(--ink-soft); border: 1px solid var(--line-dark); border-radius: var(--radius-m); padding: 24px; }
+.demo-card-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; }
+.demo-role-badge { font-family: var(--font-mono); font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.08em; padding: 3px 9px; border-radius: 999px; background: rgba(47,182,224,0.16); color: var(--signal-cyan); }
+.demo-field { display: flex; justify-content: space-between; padding: 9px 0; border-top: 1px solid var(--line-dark); font-size: 0.86rem; }
+.demo-field span:first-child { color: #8FA0C4; }
+.demo-field span:last-child { font-family: var(--font-mono); color: var(--white); }
+
+/* --- footer -----------------------------------------------------------------*/
+.site-footer { background: var(--ink); color: #8FA0C4; padding: 48px 0 28px; border-top: 1px solid var(--line-dark); }
+.footer-top { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; margin-bottom: 24px; }
+.footer-bottom { display: flex; justify-content: space-between; padding-top: 10px; border-top: 1px solid var(--line-dark); font-size: 0.8rem; flex-wrap: wrap; gap: 10px; }
+
+/* --- generic page shell for inner pages -------------------------------------*/
+.page-hero {   background: 
+  linear-gradient(180deg, rgba(11,27,51,0.88) 0%, rgba(11,27,51,0.96) 100%),
+  url("on the road.jpg") center/cover no-repeat;
+  color: var(--white);
+  padding: 52px 0;
+}
+.page-hero p { color: #AAB8D1; }
+.breadcrumb { font-family: var(--font-mono); font-size: 0.78rem; color: var(--signal-cyan); margin-bottom: 10px; }
+
+.panel { background: var(--white); border: 1px solid var(--line); border-radius: var(--radius-l); padding: 32px; }
+.panel + .panel { margin-top: 20px; }
+
+.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+@media (max-width: 640px) { .form-grid { grid-template-columns: 1fr; } }
+.form-note { font-size: 0.82rem; color: var(--slate-light); margin-top: -8px; }
+.auth-shell { max-width: 440px; margin: 0 auto; }
+.form-error { background: #FBEAEA; color: var(--bad); border: 1px solid #F1C7C7; border-radius: var(--radius-s); padding: 10px 14px; font-size: 0.86rem; margin-bottom: 16px; display: none; }
+.form-error.show { display: block; }
+.form-success { background: #E9F7F0; color: var(--good); border: 1px solid #C6EAD8; border-radius: var(--radius-s); padding: 10px 14px; font-size: 0.86rem; margin-bottom: 16px; }
+
+/* result / ride list */
+.ride-row { display: grid; grid-template-columns: 100px 1fr auto auto; gap: 20px; align-items: center; padding: 20px; border: 1px solid var(--line); border-radius: var(--radius-m); background: var(--white); margin-bottom: 14px; }
+@media (max-width: 760px) { .ride-row { grid-template-columns: 1fr; text-align: left; } }
+.ride-time { font-family: var(--font-mono); font-weight: 700; font-size: 1.1rem; }
+.ride-vehicle-name { font-weight: 600; }
+.ride-meta { font-size: 0.82rem; color: var(--slate-light); }
+.load-bar { width: 120px; height: 6px; border-radius: 999px; background: var(--paper-dim); overflow: hidden; margin-top: 6px; }
+.load-bar-fill { height: 100%; background: var(--signal-cyan); }
+.load-bar-fill.high { background: var(--amber); }
+.load-bar-fill.critical { background: var(--bad); }
+.ride-price { text-align: right; }
+.ride-price .amount { font-family: var(--font-mono); font-weight: 700; font-size: 1.25rem; }
+.ride-price .per { font-size: 0.74rem; color: var(--slate-light); }
+
+.badge { display: inline-block; padding: 3px 10px; border-radius: 999px; font-size: 0.72rem; font-weight: 600; }
+.badge-confirmed { background: #E9F7F0; color: var(--good); }
+.badge-cancelled { background: #FBEAEA; color: var(--bad); }
+
+table.data-table { width: 100%; border-collapse: collapse; font-size: 0.88rem; }
+.data-table th { text-align: left; font-family: var(--font-mono); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--slate-light); padding: 10px 12px; border-bottom: 1px solid var(--line); }
+.data-table td { padding: 12px; border-bottom: 1px solid var(--line); }
+.data-table tr:hover td { background: var(--paper); }
+
+.stat-tiles { display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px; margin-bottom: 28px; }
+@media (max-width: 900px) { .stat-tiles { grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 760px) { .stat-tiles { grid-template-columns: repeat(2, 1fr); } }
+.stat-tile { background: var(--white); border: 1px solid var(--line); border-radius: var(--radius-m); padding: 20px; }
+.stat-tile-num { font-family: var(--font-mono); font-size: 1.6rem; font-weight: 700; color: var(--route-blue); }
+.stat-tile-label { font-size: 0.78rem; color: var(--slate-light); margin-top: 4px; }
+
+.tabs { display: flex; gap: 6px; border-bottom: 1px solid var(--line); margin-bottom: 24px; }
+.tab-btn { padding: 12px 18px; font-weight: 600; color: var(--slate); border-bottom: 2px solid transparent; background: none; border-top: none; border-left: none; border-right: none; }
+.tab-btn.active { color: var(--route-blue); border-color: var(--route-blue); }
+
+.empty-state { text-align: center; padding: 60px 20px; color: var(--slate); }
+.empty-state h3 { color: var(--ink); }
+
+.progress-steps { display: flex; margin-bottom: 32px; }
+.progress-step { flex: 1; text-align: center; position: relative; font-size: 0.8rem; color: var(--slate-light); font-weight: 600; }
+.progress-step::before { content: ""; position: absolute; top: -18px; left: 0; right: 0; height: 3px; background: var(--line); }
+.progress-step.done::before { background: var(--signal-cyan); }
+.progress-step.active { color: var(--ink); }
+.progress-step span { display: block; margin-top: 6px; }
+
+/* =========================================================================
+   New feature components: top bar, search tabs, trust icons, about/story
+   split panels, quote banner, core values, services, CTA banner, footer
+   ========================================================================= */
+
+/* --- utility top strip (phone + hours) above header ----------------------*/
+.top-bar { background: var(--ink); border-bottom: 1px solid var(--line-dark); }
+.top-bar .container { display: flex; justify-content: space-between; align-items: center; height: 34px; font-size: 0.76rem; color: #8FA0C4; }
+.top-bar-links { display: flex; gap: 18px; }
+.top-bar-links a { display: inline-flex; align-items: center; gap: 6px; color: #C7D2E8; }
+.top-bar-links a:hover { color: var(--white); }
+@media (max-width: 700px) { .top-bar .top-bar-hours { display: none; } }
+
+/* --- search tabs (one-way / round trip) -----------------------------------*/
+.search-tabs { display: flex; gap: 6px; margin-bottom: 18px; }
+.search-tab { padding: 9px 20px; border-radius: 999px; border: 1px solid var(--line); background: var(--paper); color: var(--slate); font-weight: 600; font-size: 0.86rem; }
+.search-tab.active { background: var(--ink); color: var(--white); border-color: var(--ink); }
+
+/* --- icon feature grid (why choose us) -------------------------------------*/
+.icon-feature { text-align: left; }
+.icon-feature-badge {
+  width: 52px; height: 52px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  background: rgba(20,62,117,0.08); border: 1px solid rgba(20,62,117,0.16); margin-bottom: 16px;
+  color: var(--route-blue);
+}
+.icon-feature-badge svg { width: 24px; height: 24px; stroke: currentColor; }
+.section--dark .icon-feature-badge { background: rgba(47,182,224,0.12); border-color: rgba(47,182,224,0.3); color: var(--signal-cyan); }
+.icon-feature h3 { font-size: 1.05rem; margin-bottom: 6px; }
+.icon-feature p { font-size: 0.9rem; margin-bottom: 0; }
+
+/* --- split panel (image + content), reused for About preview / Our Story --*/
+.split-panel { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center; }
+.split-panel.reverse { grid-template-columns: 1fr 1fr; }
+.split-panel.reverse .split-media { order: 2; }
+.split-panel.reverse .split-content { order: 1; }
+@media (max-width: 860px) {
+  .split-panel, .split-panel.reverse { grid-template-columns: 1fr; }
+  .split-panel.reverse .split-media, .split-panel.reverse .split-content { order: initial; }
+}
+.split-media { position: relative; border-radius: var(--radius-l); overflow: hidden; aspect-ratio: 4/3; background: linear-gradient(135deg, var(--route-blue) 0%, var(--ink) 100%); }
+.split-media img { width: 100%; height: 100%; object-fit: cover; }
+.overlay-card {
+  position: absolute; right: 20px; bottom: 20px; left: 20px; max-width: 280px;
+  background: var(--white); border-radius: var(--radius-m); box-shadow: var(--shadow-pop);
+  padding: 16px; display: flex; gap: 12px; align-items: flex-start;
+}
+.split-media img.media-illustration{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.overlay-card .icon-feature-badge { width: 38px; height: 38px; margin-bottom: 0; flex-shrink: 0; }
+.overlay-card .icon-feature-badge svg { width: 18px; height: 18px; }
+.overlay-card h4 { margin: 0 0 4px; font-size: 0.92rem; font-family: var(--font-display); }
+.overlay-card p { margin: 0; font-size: 0.8rem; }
+
+.play-overlay {
+  position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; gap: 10px;
+  background: rgba(11,27,51,0.28); color: var(--white); font-weight: 600; font-size: 0.9rem; cursor: pointer;
+}
+.play-overlay .play-circle {
+  width: 54px; height: 54px; border-radius: 50%; background: var(--white); color: var(--route-blue);
+  display: flex; align-items: center; justify-content: center; font-size: 1.1rem;
+}
+
+/* --- quote / trust banner ---------------------------------------------------*/
+.quote-banner {
+  background: var(--ink); color: var(--white); border-radius: var(--radius-l); padding: 30px 34px;
+  display: flex; align-items: center; gap: 20px; border-left: 4px solid var(--signal-cyan);
+}
+.quote-banner .icon-feature-badge { background: rgba(47,182,224,0.14); border-color: rgba(47,182,224,0.35); margin-bottom: 0; flex-shrink: 0; }
+.quote-banner p { color: var(--white); font-family: var(--font-display); font-size: 1.15rem; font-weight: 600; margin: 0; line-height: 1.4; }
+@media (max-width: 620px) { .quote-banner { flex-direction: column; align-items: flex-start; } }
+
+/* --- core values card -------------------------------------------------------*/
+.values-card { background: var(--white); border: 1px solid var(--line); border-radius: var(--radius-l); padding: 28px; }
+.value-row { display: flex; gap: 14px; padding: 14px 0; border-top: 1px solid var(--line); }
+.value-row:first-of-type { border-top: none; padding-top: 0; }
+.value-row .icon-feature-badge { width: 40px; height: 40px; margin-bottom: 0; flex-shrink: 0; }
+.value-row .icon-feature-badge svg { width: 19px; height: 19px; }
+.value-row h4 { margin: 0 0 4px; font-family: var(--font-display); font-size: 0.98rem; }
+.value-row p { margin: 0; font-size: 0.86rem; }
+
+/* --- services grid -----------------------------------------------------------*/
+.services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 18px; }
+.service-card { background: var(--white); border: 1px solid var(--line); border-radius: var(--radius-m); padding: 24px; transition: box-shadow .18s ease, transform .18s ease; }
+.service-card:hover { box-shadow: var(--shadow-card); transform: translateY(-2px); }
+.service-card .icon-feature-badge { margin-bottom: 14px; }
+.service-card h3 { font-size: 1.02rem; margin-bottom: 6px; }
+.service-card p { font-size: 0.87rem; margin-bottom: 14px; }
+.service-card a { font-size: 0.84rem; font-weight: 600; color: var(--route-blue); }
+
+/* --- cta banner ----------------------------------------------------------------*/
+.cta-banner {
+  background: var(--route-blue); color: var(--white); border-radius: var(--radius-l);
+  padding: 30px 34px; display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap;
+}
+.cta-banner-left { display: flex; align-items: center; gap: 16px; }
+.cta-banner-left .icon-feature-badge { background: rgba(255,255,255,0.16); border-color: rgba(255,255,255,0.3); margin-bottom: 0; }
+.cta-banner h3 { margin: 0 0 2px; color: var(--white); font-size: 1.2rem; }
+.cta-banner p { margin: 0; color: #D7E3F5; font-size: 0.88rem; }
+.cta-banner-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+.cta-banner .btn-outline { color: var(--white); border-color: rgba(255,255,255,0.5); background: transparent; }
+.cta-banner .btn-outline:hover { border-color: var(--white); }
+
+/* --- full footer with newsletter -----------------------------------------------*/
+.footer-grid { display: inline-flex; flex-wrap: wrap; width: 100%; }
+.footer-grid > * { flex: 1 1 0%;}
+@media (max-width: 900px) { .footer-grid > * { flex: 0 0 50%; } }
+@media (max-width: 560px) { .footer-grid { flex: 0 0 100%;} }
+.footer-col {width: 150px;}
+.footer-col h4 { color: var(--white); font-family: var(--font-display); font-size: 0.9rem; margin-bottom: 14px; }
+.footer-col ul li { margin-bottom: 9px; font-size: 0.86rem; }
+.footer-col ul li a:hover { color: var(--white); }
+.footer-col p { font-size: 0.84rem; }
+.footer-social { display: flex; gap: 10px; margin-top: 16px; }
+.footer-social a {
+  width: 32px; height: 32px; border-radius: 50%; border: 1px solid var(--line-dark);
+  display: flex; align-items: center; justify-content: center; font-size: 0.82rem;
+}
+.footer-social a:hover { border-color: var(--signal-cyan); color: var(--signal-cyan); }
+.newsletter-form { display: flex; gap: 8px; margin-top: 4px; }
+.newsletter-form input { flex: 1; padding: 10px 12px; border-radius: var(--radius-s); border: 1px solid var(--line-dark); background: var(--ink-soft); color: var(--white); font-size: 0.86rem; }
+.newsletter-form input::placeholder { color: #8FA0C4; }
+.newsletter-form input:focus { border-color: var(--signal-cyan); }
+.newsletter-note { font-size: 0.76rem; color: #8FA0C4; margin-top: 8px; }
+
+.user-name{
+  display: inline-block;
+  width: 80px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  vertical-align: bottom;
+}
+
+
+
+/* =========================================================================
+   Responsive foundation
+   - Fluid at every viewport width and height
+   - Prevents fixed-width children from forcing a narrow/overflowing page
+   - Mobile-first adjustments for phones, tablets, laptops and large screens
+   ========================================================================= */
+html, body {
+  width: 100%;
+  min-width: 0;
+  min-height: 100%;
+}
+
+body {
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+img, video, canvas, svg {
+  max-width: 100%;
+}
+
+img, video {
+  height: auto;
+}
+
+button, input, select, textarea {
+  max-width: 100%;
+}
+
+.container {
+  width: 100%;
+  max-width: var(--container);
+  margin-left: auto;
+  margin-right: auto;
+  min-width: 0;
+}
+
+.container > *,
+.section-head > *,
+.hero-grid > *,
+.split-panel > *,
+.fleet-panel > *,
+.calc-panel > *,
+.footer-grid > * {
+  min-width: 0;
+}
+
+.site-header,
+.top-bar,
+.hero,
+.section,
+.site-footer {
+  width: 100%;
+  min-width: 0;
+}
+
+.site-header .container {
+  width: 100%;
+}
+
+/* Long text, email addresses and table content must never create horizontal
+   overflow on small screens. */
+h1, h2, h3, h4, p, a, li, td, th, label, span {
+  overflow-wrap: anywhere;
+}
+
+.data-table-wrap,
+.table-wrap,
+.overflow-auto {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+
+/* Body headings: use Times New Roman for all bold header content. */
+body h1,
+body h2,
+body h3,
+body h4,
+body h5,
+body h6 {
+  font-family: "Times New Roman", Times, serif;
+  font-weight: 700;
+}
+
+/* Header typography: use Times New Roman throughout the header without
+   changing the typography used by the rest of the website. */
+.site-header,
+.site-header * {
+  font-family: "Times New Roman", Times, serif;
+}
+
+/* --- header: keep brand, authentication and menu inside every viewport --- */
+.site-header .container {
+  min-height: 72px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+
+.brand {
+  flex: 0 1 auto;
+}
+
+.nav-links {
+  min-width: 0;
+}
+
+.header-actions {
+  flex: 0 1 auto;
+}
+
+.nav-toggle {
+  flex-shrink: 0;
+}
+
+/* --- hero and grids: allow columns to shrink instead of overflowing --- */
+.hero-grid,
+.split-panel,
+.fleet-panel,
+.calc-panel,
+.demo-grid,
+.grid-4,
+.grid-3,
+.grid-2,
+.search-grid,
+.form-grid,
+.stat-tiles {
+  min-width: 0;
+}
+
+.hero-grid > *,
+.split-panel > *,
+.fleet-panel > *,
+.calc-panel > *,
+.demo-grid > *,
+.grid-4 > *,
+.grid-3 > *,
+.grid-2 > *,
+.search-grid > *,
+.form-grid > *,
+.stat-tiles > * {
+  min-width: 0;
+}
+
+.hero h1 {
+  font-size: clamp(1.9rem, 5vw, 3.4rem);
+}
+
+.hero .lede {
+  width: 100%;
+}
+
+.route-diagram {
+  width: 100%;
+  max-width: 100%;
+}
+
+.route-diagram-top {
+  flex-wrap: wrap;
+  gap: 8px 14px;
+}
+
+.route-diagram-clock {
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+
+
+/* Search controls become one column before they can become cramped. */
+@media (max-width: 700px) {
+  .container {
+    padding-left: 18px;
+    padding-right: 18px;
+  }
+
+  .section {
+    padding-top: 64px;
+    padding-bottom: 64px;
+  }
+
+  .section--tight {
+    padding-top: 44px;
+    padding-bottom: 44px;
+  }
+
+  .hero-grid {
+    gap: 30px;
+    padding-bottom: 44px;
+  }
+
+  .hero-ctas {
+    width: 100%;
+  }
+
+  .hero-ctas .btn {
+    flex: 1 1 180px;
+  }
+
+  .hero-stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    margin-top: 38px;
+  }
+
+  .hero-stat {
+    min-width: 0;
+    padding: 18px 14px 20px;
+  }
+
+  .hero-stat-num {
+    font-size: clamp(1.25rem, 5vw, 1.7rem);
+  }
+
+  .hero-stat-label {
+    font-size: 0.75rem;
+  }
+
+  .search-card {
+    padding: 20px;
+    margin-top: -34px;
+  }
+
+  .search-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .field-swap {
+    align-items: center;
+    padding-bottom: 0;
+  }
+
+  .swap-btn {
+    align-self: center;
+  }
+
+  .fleet-panel,
+  .calc-panel {
+    gap: 0;
+  }
+
+  .fleet-panel {
+    padding: 22px;
+  }
+
+  .calc-inputs,
+  .calc-output {
+    padding: 24px;
+  }
+
+  .route-diagram-meta {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .footer-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 28px 20px;
+  }
+
+  .footer-grid > *,
+  .footer-col {
+    width: auto;
+    min-width: 0;
+  }
+
+  .newsletter-form {
+    flex-wrap: wrap;
+  }
+
+  .newsletter-form input {
+    min-width: 0;
+    width: 100%;
+  }
+}
+
+@media (max-width: 560px) {
+  .site-header .container {
+    gap: 7px;
+    min-height: 60px;
+    padding-top: 7px;
+    padding-bottom: 7px;
+  }
+
+  .brand {
+    flex: 1 1 auto;
+    min-width: 0;
+    font-size: 0.98rem;
+    gap: 7px;
+  }
+
+  .brand-mark {
+    width: 40px;
+    height: 40px;
+    flex-basis: 40px;
+  }
+
+  .header-actions {
+    gap: 6px;
+    flex: 0 0 auto;
+  }
+
+  .header-actions .btn-sm {
+    padding: 7px 11px;
+    font-size: 0.8rem;
+  }
+
+  .nav-toggle {
+    padding: 7px 9px;
+  }
+
+  .container {
+    padding-left: 14px;
+    padding-right: 14px;
+  }
+
+  .section {
+    padding-top: 52px;
+    padding-bottom: 52px;
+  }
+
+  .hero-grid {
+    gap: 24px;
+  }
+
+  .hero h1 {
+    font-size: clamp(1.8rem, 9vw, 2.6rem);
+  }
+
+  .hero .lede,
+  .lede {
+    font-size: 0.98rem;
+  }
+
+  .hero-ctas .btn {
+    width: 100%;
+    flex-basis: 100%;
+  }
+
+  .hero-stats {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .hero-stat:nth-child(odd) {
+    border-right: 1px solid var(--line-dark);
+  }
+
+  .hero-stat:nth-child(even) {
+    border-right: none;
+  }
+
+  .route-diagram {
+    padding: 20px;
+    border-radius: 16px;
+  }
+
+  .route-endpoint-code {
+    font-size: 1.15rem;
+  }
+
+  .route-endpoint-city {
+    font-size: 0.72rem;
+  }
+
+  .search-card {
+    padding: 16px;
+    border-radius: 16px;
+  }
+
+  .fleet-spec-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .form-grid,
+  .grid-2,
+  .stat-tiles {
+    grid-template-columns: 1fr;
+  }
+
+  .footer-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .footer-bottom,
+  .footer-top {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 380px) {
+  .container {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+
+  .brand {
+    font-size: 0.9rem;
+  }
+
+  .brand-mark {
+    width: 36px;
+    height: 36px;
+    flex-basis: 36px;
+  }
+
+  .header-actions .btn-sm {
+    padding: 6px 9px;
+    font-size: 0.76rem;
+  }
+
+  .nav-toggle {
+    padding: 6px 8px;
+  }
+
+  .hero-stats {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-stat,
+  .hero-stat:nth-child(odd),
+  .hero-stat:nth-child(even) {
+    border-right: none;
+    border-bottom: 1px solid var(--line-dark);
+  }
+
+  .hero-stat:last-child {
+    border-bottom: none;
+  }
+
+  .search-tabs {
+    flex-wrap: wrap;
+  }
+
+  .search-tab {
+    flex: 1 1 130px;
+  }
+}
+
+/* Short screens: reduce empty vertical space but never clip content. */
+@media (max-height: 700px) and (min-width: 701px) {
+  .section {
+    padding-top: 60px;
+    padding-bottom: 60px;
+  }
+
+  .hero-grid {
+    padding-bottom: 42px;
+  }
+
+  .hero-stats {
+    margin-top: 36px;
+  }
+}
+
+@media (max-height: 620px) {
+  .section,
+  .section--tight {
+    padding-top: 42px;
+    padding-bottom: 42px;
+  }
+}
+
+/* If a menu is opened, keep it inside the viewport width. */
+.nav-links.is-open {
+  display: flex;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  background: var(--ink);
+  flex-direction: column;
+  padding: 10px 18px 20px;
+  gap: 2px;
+  border-bottom: 1px solid var(--line-dark);
+  z-index: 39;
+}
+
+.nav-links.is-open a {
+  width: 100%;
+}
+
+
+
+
+/* ================================================================
+   PAYMENT FLOW
+   ================================================================ */
+.payment-panel { margin: 28px auto 0; max-width: 680px; padding: 28px; text-align: center; background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius-l); }
+.payment-panel h2 { margin: 8px 0 6px; }
+.payment-panel > p { max-width: 560px; margin: 0 auto 18px; color: var(--slate); }
+.payment-amount { font-family: var(--font-mono); font-size: 2rem; font-weight: 700; color: var(--route-blue); margin: 10px 0 24px; }
+.payment-form { text-align: left; max-width: 560px; margin: 0 auto; }
+.payment-form select, .payment-form input { width: 100%; box-sizing: border-box; }
+.payment-card-fields { margin-top: 16px; }
+.payment-notice { margin: 16px 0; padding: 14px 16px; border: 1px solid var(--line); border-radius: var(--radius-m); background: var(--white); flex-direction: column; gap: 4px; }
+.payment-notice span { color: var(--slate); font-size: .88rem; }
+.payment-success { background: var(--white); border: 1px solid var(--line); border-radius: var(--radius-l); padding: 32px; }
+.payment-success h3 { margin: 8px 0 4px; }
+.payment-success > p { color: var(--slate); }
+.payment-receipt { max-width: 520px; margin: 20px auto 0; padding: 4px 16px; border: 1px solid var(--line); border-radius: var(--radius-m); text-align: left; background: var(--white); }
+.payment-receipt div { display: flex; justify-content: space-between; gap: 18px; padding: 12px 0; border-bottom: 1px dashed var(--line); }
+.payment-receipt div:last-child { border-bottom: none; }
+.payment-receipt span { color: var(--slate); }
+.payment-receipt strong { font-family: var(--font-mono); text-align: right; }
+.payment-admin-summary { display: flex; gap: 24px; flex-wrap: wrap; margin-bottom: 18px; padding: 16px 18px; border: 1px solid var(--line); border-radius: var(--radius-m); background: var(--paper); }
+.badge-pending { background: #FFF5D9; color: #8A6500; }
+.badge-paid { background: #E9F7F0; color: var(--good); }
+.badge-refunded { background: #EAF1FF; color: var(--route-blue); }
+@media (max-width: 760px) { .payment-panel, .payment-success { padding: 22px 18px; } .payment-receipt div { flex-direction: column; gap: 4px; } .payment-receipt strong { text-align: left; } }
+
+
+/* ================================================================
+   PAYMENT CHECKOUT — use the same Gachok visual language and fonts.
+   ================================================================ */
+.payment-panel,
+.payment-success {
+  font-family: var(--font-body);
+}
+.payment-panel h2,
+.payment-success h2 {
+  font-family: var(--font-display) !important;
+}
+.payment-panel .eyebrow,
+.payment-success .eyebrow {
+  font-family: var(--font-mono) !important;
+}
+.payment-panel {
+  background: var(--ink-soft);
+  color: var(--white);
+  border-color: var(--line-dark);
+  box-shadow: var(--shadow-card);
+}
+.payment-panel .eyebrow { color: var(--signal-cyan); }
+.payment-panel h2 { color: var(--white); }
+.payment-intro {
+  max-width: 600px;
+  margin: 0 auto 20px;
+  color: #AAB8D1;
+}
+.payment-amount-label {
+  font-family: var(--font-body);
+  color: #AAB8D1;
+  font-size: .82rem;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+}
+.payment-panel .payment-amount {
+  color: var(--signal-cyan);
+  font-family: var(--font-mono);
+  margin: 6px 0 24px;
+}
+.payment-panel .field label { color: #C7D2E8; }
+.payment-panel input,
+.payment-panel select {
+  background: var(--ink);
+  color: var(--white);
+  border-color: var(--line-dark);
+}
+.payment-panel input::placeholder { color: #7181A0; }
+.payment-panel .form-note { color: #8FA0C4; }
+.payment-panel .payment-notice {
+  background: var(--ink);
+  border-color: var(--line-dark);
+}
+.payment-panel .payment-notice strong { color: var(--white); }
+.payment-panel .payment-notice span { color: #AAB8D1; }
+.payment-panel .form-error { color: #FFB6B6; }
+.payment-panel .btn-primary {
+  background: var(--signal-cyan);
+  color: var(--ink);
+}
+.payment-panel .btn-primary:hover {
+  background: #5BC9E9;
+  box-shadow: 0 8px 20px rgba(47,182,224,.25);
+}
+.payment-success {
+  background: var(--paper);
+  border-color: var(--line);
+  box-shadow: var(--shadow-card);
+}
+.payment-success .eyebrow { color: var(--signal-cyan-dim); }
+.payment-success .confirmation-reference {
+  font-family: var(--font-mono);
+  font-size: clamp(1.7rem, 5vw, 2.4rem);
+  font-weight: 700;
+  letter-spacing: .08em;
+  color: var(--route-blue);
+  margin: 18px 0;
+}
+.confirmation-summary {
+  max-width: 560px;
+  margin: 0 auto 20px;
+  text-align: left;
+}
+.confirmation-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 20px;
+}
+.payment-panel .payment-note { margin-top: 10px; }
+@media (max-width: 760px) {
+  .payment-panel, .payment-success { margin-left: 0; margin-right: 0; }
+}
+
+
+/* =========================================================================
+   BOOKING / MY BOOKINGS / ADMIN RESPONSIVE LAYER
+   This block is intentionally last so it can override older component rules
+   and inline layout declarations without changing the visual design.
+   ========================================================================= */
+
+/* Booking checkout */
+.booking-flow {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(280px, 1fr);
+  gap: 24px;
+  align-items: start;
+}
+.booking-details-panel,
+.booking-summary-panel,
+.booking-confirm-panel,
+.payment-panel {
+  min-width: 0;
+}
+.booking-details-panel form,
+.booking-summary-panel,
+.payment-panel,
+.payment-success {
+  overflow-wrap: anywhere;
+}
+.booking-details-panel .form-grid {
+  width: 100%;
+}
+.booking-details-panel input,
+.booking-details-panel select,
+.booking-details-panel textarea {
+  width: 100%;
+  min-width: 0;
+}
+.booking-summary-panel #rideSummaryBody,
+.booking-summary-panel #fareBreakdown {
+  min-width: 0;
+}
+
+/* Checkout progress should wrap rather than squeeze labels into unreadable text. */
+.progress-steps {
+  gap: 8px;
+  min-width: 0;
+}
+.progress-step {
+  min-width: 0;
+  padding: 0 4px;
+}
+.progress-step span {
+  overflow-wrap: anywhere;
+}
+
+/* Payment and confirmation are full-width within the checkout container. */
+#paymentPanel,
+#confirmPanel {
+  width: 100%;
+  min-width: 0;
+}
+.payment-panel {
+  box-sizing: border-box;
+}
+.payment-form .form-grid {
+  width: 100%;
+}
+.payment-form .btn-block {
+  min-height: 48px;
+}
+.confirmation-actions .btn {
+  min-width: 170px;
+}
+
+/* My bookings and admin data tables: keep the page itself from overflowing.
+   The table becomes a touch-scroll region on small screens. */
+.data-table-wrap {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-m);
+  background: var(--white);
+}
+.data-table-wrap .data-table {
+  margin: 0;
+  min-width: 760px;
+}
+.bookings-table-wrap .data-table {
+  min-width: 900px;
+}
+.admin-table-wrap .data-table {
+  min-width: 700px;
+}
+.data-table th,
+.data-table td {
+  white-space: normal;
+  vertical-align: top;
+}
+.data-table td .btn {
+  white-space: nowrap;
+}
+
+/* Admin dashboard */
+#adminBody,
+#adminBody > *,
+.tab-panel {
+  min-width: 0;
+  max-width: 100%;
+}
+.tabs {
+  min-width: 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+  padding-bottom: 1px;
+}
+.tab-btn {
+  flex: 0 0 auto;
+  white-space: nowrap;
+}
+.payment-admin-summary {
+  min-width: 0;
+}
+.payment-admin-summary > span {
+  min-width: 0;
+}
+
+/* Route fare editor must be able to shrink on phones. */
+.admin-table [data-action="save-fare"] {
+  flex: 0 0 auto;
+}
+.admin-table input[type="number"] {
+  width: 120px !important;
+  max-width: 100%;
+  min-width: 0;
+}
+
+@media (max-width: 1020px) {
+  .booking-flow {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .booking-summary-panel {
+    order: 2;
+  }
+  .booking-details-panel {
+    order: 1;
+  }
+  #paymentPanel,
+  #confirmPanel {
+    max-width: 760px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+@media (max-width: 760px) {
+  /* Checkout page spacing */
+  .booking-flow {
+    gap: 16px;
+  }
+  .booking-details-panel,
+  .booking-summary-panel,
+  .booking-confirm-panel,
+  .payment-panel {
+    padding: 22px 18px;
+    border-radius: 16px;
+  }
+
+  .progress-steps {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px 10px;
+    margin-bottom: 28px;
+  }
+  .progress-step::before {
+    top: -10px;
+  }
+  .progress-step span {
+    font-size: 0.72rem;
+    line-height: 1.3;
+  }
+
+  .booking-details-panel h3,
+  .booking-summary-panel h3 {
+    font-size: 1.12rem;
+  }
+  .booking-details-panel .btn[type="submit"],
+  .payment-panel .btn-block {
+    width: 100%;
+  }
+
+  .payment-panel h2,
+  .payment-success h2 {
+    font-size: clamp(1.45rem, 6vw, 2rem);
+  }
+  .payment-panel .payment-amount {
+    font-size: clamp(1.6rem, 8vw, 2rem);
+  }
+  .payment-form .form-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  .confirmation-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .confirmation-actions .btn {
+    width: 100%;
+    min-width: 0;
+  }
+
+  /* Admin */
+  .stat-tiles {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
+  .stat-tile {
+    padding: 16px 14px;
+  }
+  .stat-tile-num {
+    font-size: clamp(1.15rem, 5vw, 1.45rem);
+    overflow-wrap: anywhere;
+  }
+  .stat-tile-label {
+    line-height: 1.3;
+  }
+  .payment-admin-summary {
+    gap: 10px 18px;
+    padding: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .booking-details-panel,
+  .booking-summary-panel,
+  .booking-confirm-panel,
+  .payment-panel {
+    padding: 18px 14px;
+    border-radius: 14px;
+  }
+  .progress-steps {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+  .progress-step {
+    text-align: left;
+    padding-left: 10px;
+  }
+  .progress-step::before {
+    left: 0;
+    right: 0;
+  }
+
+  .stat-tiles {
+    grid-template-columns: 1fr;
+  }
+  .tabs {
+    gap: 2px;
+    margin-left: -2px;
+    margin-right: -2px;
+  }
+  .tab-btn {
+    padding: 11px 13px;
+    font-size: 0.82rem;
+  }
+
+  .payment-admin-summary {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+@media (max-width: 360px) {
+  .container {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+  .booking-details-panel,
+  .booking-summary-panel,
+  .booking-confirm-panel,
+  .payment-panel {
+    padding: 16px 12px;
+  }
+  .data-table-wrap .data-table {
+    min-width: 680px;
+  }
+  .bookings-table-wrap .data-table {
+    min-width: 820px;
+  }
+}
+
+/* ========================================================================
+   FINAL MOBILE DATA-VIEW FIX
+   On narrow device views, dense tables are converted into aligned cards.
+   This prevents tiny/floating text, squeezed columns and overlapping cells.
+   Desktop/tablet widths keep the normal table presentation.
+   ======================================================================== */
+.responsive-card-table {
+  width: 100%;
+  table-layout: auto;
+}
+
+.responsive-card-table th,
+.responsive-card-table td {
+  overflow-wrap: normal;
+  word-break: normal;
+}
+
+@media (max-width: 760px) {
+  /* Keep admin tabs readable and horizontally scrollable instead of
+     squeezing every label into a tiny space. */
+  #adminBody .tabs {
+    display: flex;
+    justify-content: flex-start;
+    width: 100%;
+    gap: 8px;
+    padding: 0 0 8px;
+    margin-bottom: 20px;
+  }
+
+  #adminBody .tab-btn {
+    flex: 0 0 auto;
+    min-width: max-content;
+    white-space: nowrap;
+    text-align: center;
+  }
+
+  /* Tables become vertically stacked, labelled cards on phones/tablets. */
+  .responsive-card-table,
+  .responsive-card-table tbody {
+    display: block;
+    width: 100%;
+  }
+
+  .responsive-card-table thead {
+    display: none;
+  }
+
+  .responsive-card-table tr {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 12px 14px;
+    margin: 0;
+    border-bottom: 1px solid var(--line);
+    background: var(--white);
+  }
+
+  .responsive-card-table tr:last-child {
+    border-bottom: none;
+  }
+
+  .responsive-card-table td {
+    display: grid;
+    grid-template-columns: minmax(90px, 34%) minmax(0, 1fr);
+    gap: 12px;
+    align-items: start;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 8px 0;
+    border-bottom: 0;
+    line-height: 1.45;
+    white-space: normal;
+    overflow-wrap: break-word;
+    word-break: normal;
+  }
+
+  .responsive-card-table td::before {
+    content: attr(data-label);
+    min-width: 0;
+    color: var(--slate-light);
+    font-family: var(--font-mono);
+    font-size: 0.66rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    line-height: 1.35;
+    text-transform: uppercase;
+  }
+
+  .responsive-card-table td[data-label=""] {
+    display: flex;
+    justify-content: flex-start;
+    gap: 0;
+    padding-top: 10px;
+  }
+
+  .responsive-card-table td[data-label=""]::before {
+    display: none;
+  }
+
+  .responsive-card-table .btn {
+    max-width: 100%;
+  }
+
+  .responsive-card-table .ride-meta {
+    overflow-wrap: anywhere;
+  }
+
+  .responsive-card-table .mono {
+    overflow-wrap: anywhere;
+  }
+
+  /* Route fare editor: controls wrap instead of floating outside the card. */
+  .responsive-card-table td[data-label="Set new base fare"] > div {
+    min-width: 0;
+    width: 100%;
+  }
+
+  .responsive-card-table input[type="number"] {
+    width: min(140px, 100%) !important;
+  }
+
+  /* Give every card a clear visual boundary so rows cannot appear to float. */
+  .data-table-wrap {
+    overflow: hidden;
+    padding: 0;
+    border-radius: var(--radius-m);
+  }
+}
+
+@media (max-width: 480px) {
+  .responsive-card-table tr {
+    padding: 10px 12px;
+  }
+
+  .responsive-card-table td {
+    grid-template-columns: minmax(82px, 32%) minmax(0, 1fr);
+    gap: 9px;
+    font-size: 0.84rem;
+  }
+
+  .responsive-card-table td::before {
+    font-size: 0.61rem;
+  }
+
+  #adminBody .tabs {
+    margin-left: 0;
+    margin-right: 0;
+  }
+}
+
+
+/* ========================================================================
+   FINAL MOBILE CHECKOUT FIX
+   The booking flow must never remain in a cramped desktop layout on a
+   phone/tablet.  The page container, progress tracker, passenger form,
+   ride summary and payment card all shrink/reflow together.
+   ======================================================================== */
+.booking-page-container {
+  width: 100%;
+  max-width: 980px;
+  padding: 40px 24px;
+  margin-left: auto;
+  margin-right: auto;
+  min-width: 0;
+}
+
+.booking-page-container,
+.booking-page-container * {
+  max-width: 100%;
+}
+
+.booking-flow {
+  width: 100%;
+  min-width: 0;
+}
+
+.booking-details-panel,
+.booking-summary-panel,
+.payment-panel,
+.booking-confirm-panel {
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+  overflow: hidden;
+}
+
+.booking-details-panel .form-grid,
+.payment-form .form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.booking-details-panel .field,
+.payment-form .field {
+  min-width: 0;
+}
+
+.booking-details-panel input,
+.booking-details-panel select,
+.payment-panel input,
+.payment-panel select {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+}
+
+.payment-panel {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.payment-panel .payment-form,
+.payment-panel .payment-card-fields,
+.payment-panel .payment-notice {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+}
+
+.payment-panel .payment-form {
+  overflow: hidden;
+}
+
+.payment-panel .payment-notice {
+  box-sizing: border-box;
+  overflow-wrap: anywhere;
+}
+
+/* Prevent the progress tracker from creating a horizontal page overflow. */
+.progress-steps {
+  width: 100%;
+  min-width: 0;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+.progress-step {
+  min-width: 0;
+  overflow: hidden;
+}
+.progress-step span {
+  display: block;
+  min-width: 0;
+  overflow-wrap: anywhere;
+  word-break: normal;
+}
+
+@media (max-width: 1100px) {
+  .booking-flow {
+    grid-template-columns: 1fr;
+  }
+
+  .booking-details-panel,
+  .booking-summary-panel {
+    width: 100%;
+  }
+
+  .booking-details-panel { order: 1; }
+  .booking-summary-panel { order: 2; }
+
+  .payment-panel,
+  .booking-confirm-panel {
+    width: 100%;
+    max-width: 760px;
+  }
+}
+
+@media (max-width: 760px) {
+  .booking-page-container {
+    width: 100%;
+    padding: 24px 14px 40px;
+  }
+
+  .progress-steps {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px 10px;
+    margin-bottom: 28px;
+  }
+
+  .progress-step {
+    text-align: center;
+    padding: 0 4px;
+  }
+
+  .progress-step::before {
+    left: 0;
+    right: 0;
+    top: -10px;
+  }
+
+  .progress-step span {
+    font-size: .72rem;
+    line-height: 1.35;
+  }
+
+  .booking-details-panel,
+  .booking-summary-panel,
+  .payment-panel,
+  .booking-confirm-panel {
+    padding: 20px 16px;
+    border-radius: 16px;
+  }
+
+  .booking-details-panel .form-grid,
+  .payment-form .form-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .booking-details-panel h3,
+  .booking-summary-panel h3 {
+    font-size: 1.12rem;
+  }
+
+  .payment-panel h2,
+  .booking-confirm-panel h2 {
+    font-size: clamp(1.45rem, 7vw, 2rem);
+  }
+
+  .payment-panel .payment-amount {
+    font-size: clamp(1.55rem, 8vw, 2rem);
+    overflow-wrap: anywhere;
+  }
+
+  .payment-panel .btn-block,
+  .booking-details-panel .btn[type="submit"] {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .booking-confirm-panel .payment-receipt div {
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .booking-confirm-panel .payment-receipt strong {
+    text-align: left;
+    overflow-wrap: anywhere;
+  }
+}
+
+@media (max-width: 480px) {
+  .booking-page-container {
+    padding: 20px 10px 32px;
+  }
+
+  .progress-steps {
+    grid-template-columns: 1fr 1fr;
+    gap: 16px 8px;
+  }
+
+  .progress-step span {
+    font-size: .68rem;
+  }
+
+  .booking-details-panel,
+  .booking-summary-panel,
+  .payment-panel,
+  .booking-confirm-panel {
+    padding: 18px 13px;
+    border-radius: 14px;
+  }
+
+  .payment-panel .payment-amount-label {
+    font-size: .76rem;
+  }
+
+  .payment-panel input,
+  .payment-panel select,
+  .booking-details-panel input,
+  .booking-details-panel select {
+    font-size: .9rem;
+  }
+}
+
+@media (max-width: 360px) {
+  .booking-page-container {
+    padding-left: 8px;
+    padding-right: 8px;
+  }
+
+  .progress-steps {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .progress-step {
+    text-align: left;
+    padding-left: 8px;
+  }
+}
+
+
+/* ========================================================================
+   FINAL MOBILE DATA + PAYMENT DROPDOWN FIX
+   ======================================================================== */
+
+/* Keep every booking/payment/admin value inside its available grid cell. */
+.responsive-card-table,
+.responsive-card-table tbody,
+.responsive-card-table tr,
+.responsive-card-table td,
+.responsive-card-table td::before {
+  min-width: 0;
+}
+
+.responsive-card-table td {
+  overflow: visible;
+}
+
+.responsive-card-table td > *,
+.responsive-card-table td .ride-meta,
+.responsive-card-table td .mono,
+.responsive-card-table td .badge {
+  min-width: 0;
+  max-width: 100%;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+@media (max-width: 760px) {
+  /* Do not clip the mobile cards. All text is wrapped inside the value column. */
+  .data-table-wrap,
+  .bookings-table-wrap,
+  .admin-table-wrap {
+    overflow: visible;
+  }
+
+  .responsive-card-table tr {
+    overflow: visible;
+  }
+
+  .responsive-card-table td {
+    display: grid;
+    grid-template-columns: minmax(88px, 34%) minmax(0, 66%);
+    align-items: start;
+    gap: 10px;
+    width: 100%;
+    box-sizing: border-box;
+    overflow: visible;
+    white-space: normal;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+  }
+
+  .responsive-card-table td::before {
+    min-width: 0;
+    max-width: 100%;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+  }
+
+  .responsive-card-table td:not([data-label=""]) {
+    text-align: left;
+  }
+
+  .responsive-card-table td[data-label=""] {
+    display: flex;
+    width: 100%;
+  }
+
+  /* My Bookings and Admin > All Payments get comfortable mobile cards. */
+  .bookings-table-wrap .responsive-card-table tr,
+  #tab-payments .responsive-card-table tr {
+    padding: 14px 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .responsive-card-table td {
+    grid-template-columns: minmax(78px, 32%) minmax(0, 68%);
+    gap: 8px;
+    font-size: 0.84rem;
+  }
+
+  .bookings-table-wrap .responsive-card-table tr,
+  #tab-payments .responsive-card-table tr {
+    padding: 12px;
+  }
+}
+
+/* Custom payment-method picker: unlike a native <select>, its menu is
+   constrained to the payment card on every device width. */
+.payment-method-field,
+.payment-select {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+}
+
+.payment-select {
+  position: relative;
+}
+
+.payment-select-trigger {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  min-height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  box-sizing: border-box;
+  padding: 12px 14px;
+  border: 1px solid var(--line-dark);
+  border-radius: var(--radius-s);
+  background: var(--ink);
+  color: var(--white);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.payment-select-trigger:hover,
+.payment-select.open .payment-select-trigger {
+  border-color: var(--signal-cyan);
+}
+
+.payment-select-trigger span:first-child {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.payment-select-chevron {
+  flex: 0 0 auto;
+  color: #AAB8D1;
+  font-size: 1.1rem;
+  line-height: 1;
+}
+
+.payment-select-menu {
+  position: absolute;
+  z-index: 100;
+  top: calc(100% + 5px);
+  left: 0;
+  right: 0;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  display: none;
+  padding: 5px;
+  border: 1px solid var(--line-dark);
+  border-radius: var(--radius-s);
+  background: var(--ink-soft);
+  box-shadow: var(--shadow-card);
+  overflow-x: hidden;
+  overflow-y: auto;
+  max-height: 220px;
+}
+
+.payment-select.open .payment-select-menu {
+  display: block;
+}
+
+.payment-option {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  min-height: 44px;
+  box-sizing: border-box;
+  padding: 11px 12px;
+  border: 0;
+  border-radius: 5px;
+  background: transparent;
+  color: var(--white);
+  font: inherit;
+  text-align: left;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  cursor: pointer;
+}
+
+.payment-option:hover,
+.payment-option.active {
+  background: var(--route-blue);
+  color: var(--white);
+}
+
+@media (max-width: 480px) {
+  .payment-select-trigger {
+    min-height: 46px;
+    padding: 11px 12px;
+  }
+
+  .payment-select-menu {
+    max-height: 200px;
+  }
+
+  .payment-option {
+    min-height: 42px;
+    padding: 10px 11px;
+  }
+}
+
+/* ========================================================================
+   FINAL RESPONSIVE FIX — MY BOOKINGS + ADMIN
+   This is intentionally last in the stylesheet so earlier table rules,
+   including desktop min-widths, cannot force mobile pages wider than the
+   device viewport.
+   ======================================================================== */
+
+#bookingsList,
+#adminBody,
+#statTiles,
+#tab-bookings,
+#tab-payments,
+#tab-routes,
+#tab-users {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+}
+
+#bookingsList .data-table-wrap,
+#adminBody .data-table-wrap {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+}
+
+#bookingsList .responsive-card-table,
+#adminBody .responsive-card-table {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+}
+
+@media (max-width: 760px) {
+  /* Never allow the old desktop table min-width to survive on a device. */
+  #bookingsList .data-table-wrap,
+  #adminBody .data-table-wrap {
+    overflow-x: visible !important;
+    overflow-y: visible !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+  }
+
+  #bookingsList .responsive-card-table,
+  #adminBody .responsive-card-table,
+  #bookingsList .responsive-card-table tbody,
+  #adminBody .responsive-card-table tbody {
+    display: block !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    margin: 0 !important;
+    table-layout: auto !important;
+  }
+
+  #bookingsList .responsive-card-table thead,
+  #adminBody .responsive-card-table thead {
+    display: none !important;
+  }
+
+  #bookingsList .responsive-card-table tr,
+  #adminBody .responsive-card-table tr {
+    display: block !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    box-sizing: border-box !important;
+    margin: 0 0 14px !important;
+    padding: 14px !important;
+    border: 1px solid var(--line) !important;
+    border-radius: var(--radius-m) !important;
+    background: var(--white) !important;
+    overflow: visible !important;
+  }
+
+  #bookingsList .responsive-card-table tr:last-child,
+  #adminBody .responsive-card-table tr:last-child {
+    margin-bottom: 0 !important;
+  }
+
+  #bookingsList .responsive-card-table td,
+  #adminBody .responsive-card-table td {
+    display: grid !important;
+    grid-template-columns: minmax(82px, 31%) minmax(0, 1fr) !important;
+    align-items: start !important;
+    gap: 10px !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    box-sizing: border-box !important;
+    padding: 8px 0 !important;
+    margin: 0 !important;
+    border: 0 !important;
+    white-space: normal !important;
+    overflow: visible !important;
+    overflow-wrap: anywhere !important;
+    word-break: break-word !important;
+    line-height: 1.4 !important;
+  }
+
+  #bookingsList .responsive-card-table td::before,
+  #adminBody .responsive-card-table td::before {
+    display: block !important;
+    width: auto !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    overflow-wrap: anywhere !important;
+    word-break: break-word !important;
+    white-space: normal !important;
+  }
+
+  #bookingsList .responsive-card-table td > *,
+  #adminBody .responsive-card-table td > * {
+    min-width: 0 !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    overflow-wrap: anywhere !important;
+    word-break: break-word !important;
+  }
+
+  /* Action cells do not need a label/value grid. */
+  #bookingsList .responsive-card-table td[data-label=""],
+  #adminBody .responsive-card-table td[data-label=""] {
+    display: flex !important;
+    width: 100% !important;
+    padding-top: 12px !important;
+    border-top: 1px solid var(--line) !important;
+  }
+
+  #bookingsList .responsive-card-table td[data-label=""]::before,
+  #adminBody .responsive-card-table td[data-label=""]::before {
+    display: none !important;
+    content: none !important;
+  }
+
+  #bookingsList .responsive-card-table .btn,
+  #adminBody .responsive-card-table .btn {
+    max-width: 100% !important;
+    white-space: normal !important;
+  }
+
+  /* Admin dashboard itself must shrink with the viewport. */
+  #adminBody {
+    overflow: visible !important;
+  }
+
+  #adminBody .stat-tiles {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 10px !important;
+  }
+
+  #adminBody .stat-tile {
+    width: 100% !important;
+    min-width: 0 !important;
+    box-sizing: border-box !important;
+  }
+
+  #adminBody .tabs {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    box-sizing: border-box !important;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  #adminBody .tab-panel {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    overflow: visible !important;
+  }
+
+  #adminBody .payment-admin-summary {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    box-sizing: border-box !important;
+    overflow-wrap: anywhere !important;
+  }
+}
+
+@media (max-width: 480px) {
+  #bookingsList .responsive-card-table td,
+  #adminBody .responsive-card-table td {
+    grid-template-columns: minmax(74px, 30%) minmax(0, 1fr) !important;
+    gap: 8px !important;
+    font-size: 0.84rem !important;
+  }
+
+  #bookingsList .responsive-card-table tr,
+  #adminBody .responsive-card-table tr {
+    padding: 12px !important;
+  }
+
+  #adminBody .stat-tiles {
+    grid-template-columns: 1fr !important;
+  }
+}

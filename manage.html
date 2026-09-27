@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Manage booking | Gachok</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header id="site-header" class="site-header"></header>
+
+<section class="page-hero">
+  <div class="container">
+    <div class="breadcrumb">Retrieve a trip</div>
+    <h1 style="font-size:2rem;">Manage your booking</h1>
+    <p>Enter your six-character reference and the email used to book.</p>
+  </div>
+</section>
+
+<div class="container" style="padding:40px 24px; max-width:640px;">
+  <div class="panel">
+    <div class="form-error" id="lookupError"></div>
+    <form id="lookupForm" class="form-grid">
+      <div class="field"><label for="refInput">Booking reference</label><input id="refInput" placeholder="e.g. 7QX2K9" required style="text-transform:uppercase;"></div>
+      <div class="field"><label for="emailInput">Email used to book</label><input id="emailInput" type="email" required></div>
+      <button type="submit" class="btn btn-primary" style="grid-column:1/-1;">Find booking</button>
+    </form>
+  </div>
+
+  <div class="panel" id="resultPanel" style="display:none;">
+    <div id="resultBody"></div>
+  </div>
+</div>
+
+<footer id="site-footer" class="site-footer"></footer>
+
+<script src="js/data.js"></script>
+<script src="js/store.js"></script>
+<script src="js/nav.js"></script>
+<script src="js/manage.js"></script>
+</body>
+</html>

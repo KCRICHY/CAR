@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Complete your booking | Gachok</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header id="site-header" class="site-header"></header>
+
+<section class="page-hero">
+  <div class="container">
+    <div class="breadcrumb">Checkout</div>
+    <h1 style="font-size:2rem;">Complete your booking</h1>
+    <p id="pageSub">Review your ride and confirm passenger details.</p>
+  </div>
+</section>
+
+<div class="container booking-page-container">
+  <div class="progress-steps" id="progressSteps">
+    <div class="progress-step done"><span>1. Select ride</span></div>
+    <div class="progress-step active" id="stepDetails"><span>2. Passenger details</span></div>
+    <div class="progress-step" id="stepPayment"><span>3. Make payment</span></div>
+    <div class="progress-step" id="stepConfirm"><span>4. Confirmation</span></div>
+  </div>
+
+  <div id="bookingFlow" class="booking-flow">
+    <div class="panel booking-details-panel" id="detailsPanel">
+      <h3>Passenger details</h3>
+      <div class="form-error" id="formError"></div>
+      <form id="passengerForm">
+        <div class="form-grid">
+          <div class="field"><label for="pName">Full name</label><input id="pName" required></div>
+          <div class="field"><label for="pEmail">Email</label><input id="pEmail" type="email" required></div>
+          <div class="field"><label for="pPhone">Phone number</label><input id="pPhone" required></div>
+          <div class="field"><label for="pPax">Passengers</label><input id="pPax" value="1" disabled></div>
+        </div>
+
+        <h3 style="margin-top:28px;">Seat tier</h3>
+        <div class="chip-row" id="tierChips" style="margin-bottom:8px;"></div>
+        <p class="form-note" id="tierDesc"></p>
+
+        <button type="submit" class="btn btn-primary" style="margin-top:24px;">Confirm booking</button>
+      </form>
+    </div>
+
+    <div class="panel booking-summary-panel" id="summaryPanel">
+      <h3>Ride summary</h3>
+      <div id="rideSummaryBody"></div>
+      <hr style="border:none; border-top:1px solid var(--line); margin:18px 0;">
+      <div id="fareBreakdown"></div>
+    </div>
+  </div>
+   <div id="paymentPanel" class="payment-panel" style="display:none;">
+    <div class="eyebrow">Secure checkout</div>
+    <h2>Make payment</h2>
+    <p class="payment-intro">Your passenger details have been saved. Complete payment below to confirm your booking.</p>
+    <div class="payment-amount-label">Amount to pay</div>
+    <div class="payment-amount" id="paymentAmount"></div>
+    <form id="paymentForm" class="payment-form">
+      <div class="field payment-method-field">
+        <label for="paymentMethod">Payment method</label>
+        <div class="payment-select" id="paymentMethodPicker">
+          <button type="button" class="payment-select-trigger" id="paymentMethodTrigger" aria-haspopup="listbox" aria-expanded="false">
+            <span id="paymentMethodLabel">Debit / Credit Card</span>
+            <span class="payment-select-chevron" aria-hidden="true">⌄</span>
+          </button>
+          <div class="payment-select-menu" id="paymentMethodMenu" role="listbox" aria-label="Payment method">
+            <button type="button" class="payment-option active" role="option" aria-selected="true" data-value="Card">Debit / Credit Card</button>
+            <button type="button" class="payment-option" role="option" aria-selected="false" data-value="Bank Transfer">Bank Transfer</button>
+            <button type="button" class="payment-option" role="option" aria-selected="false" data-value="USSD">USSD</button>
+          </div>
+          <input type="hidden" id="paymentMethod" value="Card">
+        </div>
+      </div>
+       <div id="cardFields" class="payment-card-fields">
+        <div class="field"><label for="cardNumber">Card number</label><input id="cardNumber" inputmode="numeric" maxlength="19" placeholder="0000 0000 0000 0000" autocomplete="off"></div>
+        <div class="form-grid">
+          <div class="field"><label for="cardExpiry">Expiry</label><input id="cardExpiry" inputmode="numeric" maxlength="5" placeholder="MM/YY" autocomplete="off"></div>
+          <div class="field"><label for="cardCvv">CVV</label><input id="cardCvv" inputmode="numeric" maxlength="4" placeholder="123" autocomplete="off"></div>
+        </div>
+        <p class="form-note payment-note">Demo checkout: card details are used only for validation and are not stored.</p>
+      </div>
+      <div id="transferNotice" class="payment-notice" style="display:none;">
+        <strong>Bank transfer</strong>
+        <span>Use the demo transfer option below to complete payment.</span>
+      </div>
+      <div id="ussdNotice" class="payment-notice" style="display:none;">
+        <strong>USSD</strong>
+        <span>Use the demo USSD option below to complete payment.</span>
+      </div>
+      <div class="form-error" id="paymentError"></div>
+      <button type="submit" class="btn btn-primary btn-block" id="payNowBtn">Pay now</button>
+    </form>
+  </div>
+
+
+  <div id="confirmPanel" class="panel payment-success booking-confirm-panel" style="display:none; text-align:center;">
+    <div class="eyebrow" style="justify-content:center;">Booking confirmed</div>
+    <h2>You're all set.</h2>
+    <p>A confirmation with your booking reference below. Keep it to manage or cancel this trip later.</p>
+    <div class="mono"  style="font-size:2.2rem; font-weight:700; letter-spacing:0.08em; color:var(--route-blue); margin:18px 0;" id="refDisplay"></div>
+    <div id="confirmSummary" style="max-width:420px; margin:0 auto 24px; text-align:left;"></div>
+    <div class="payment-receipt" id="paymentReceipt"></div>
+    <div style="display:flex; gap:12px; justify-content:center; flex-wrap:wrap; margin-top: 10px;">
+      <a href="bookings.html" class="btn btn-primary">View my bookings</a>
+      <a href="manage.html" class="btn btn-outline">Manage this booking</a>
+    </div>
+  </div>
+</div>
+
+<footer id="site-footer" class="site-footer"></footer>
+
+<script src="js/data.js"></script>
+<script src="js/store.js"></script>
+<script src="js/nav.js"></script>
+<script src="js/booking.js"></script>
+</body>
+</html>

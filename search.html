@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Search rides | Gachok</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header id="site-header" class="site-header"></header>
+
+<section class="page-hero">
+  <div class="container">
+    <div class="breadcrumb">Real-time schedule engine</div>
+    <h1 style="font-size:2rem;">Available rides</h1>
+    <p id="routeSummary">Choose a hub pair to see live departures.</p>
+  </div>
+</section>
+
+<div class="container" style="padding:40px 24px;">
+  <form id="refineForm" class="search-grid panel" style="margin-bottom:32px;">
+    <div class="field">
+      <label for="fromHub">From</label>
+      <select id="fromHub"></select>
+    </div>
+    <div class="field field-swap">
+      <button type="button" class="swap-btn" id="swapHubs" aria-label="Swap origin and destination">⇄</button>
+    </div>
+    <div class="field">
+      <label for="toHub">To</label>
+      <select id="toHub"></select>
+    </div>
+    <div class="field">
+      <label for="rideDate">Departure date</label>
+      <input type="date" id="rideDate" required>
+    </div>
+    <div class="field">
+      <label>Passengers</label>
+      <div class="stepper">
+        <button type="button" id="paxMinus">−</button>
+        <span id="paxCount">1</span>
+        <button type="button" id="paxPlus">+</button>
+      </div>
+    </div>
+    <div class="field">
+      <label>&nbsp;</label>
+      <button type="submit" class="btn btn-primary btn-block">Update search</button>
+    </div>
+  </form>
+
+  <div id="noRoute" class="empty-state" style="display:none;">
+    <h3>No direct route between those hubs yet</h3>
+    <p>Try one of the popular routes from the home page, such as Lagos ⇄ Ibadan or Abuja ⇄ Anambra.</p>
+    <a href="index.html" class="btn btn-outline">Back to home</a>
+  </div>
+
+  <div id="roundTripNote" class="quote-banner" style="display:none; margin-bottom:24px;">
+    <div class="icon-feature-badge" id="roundTripIcon"></div>
+    <span></span>
+  </div>
+
+  <div id="resultsWrap">
+    <div class="fleet-tabs" id="vehicleFilterTabs"></div>
+    <div id="rideResults"></div>
+  </div>
+</div>
+
+<footer id="site-footer" class="site-footer"></footer>
+
+<script src="js/data.js"></script>
+<script src="js/icons.js"></script>
+<script src="js/store.js"></script>
+<script src="js/nav.js"></script>
+<script src="js/search.js"></script>
+</body>
+</html>

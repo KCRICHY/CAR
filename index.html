@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Gachok | Intercity Shuttle Booking</title>
+<meta name="description" content="Book door-to-terminal shuttle rides across fourteen hubs. Live availability, demand-based fares, browser-based simulation.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header id="site-header" class="site-header"></header>
+
+<section class="hero">
+  <div class="container hero-grid">
+    <div>
+      <div class="eyebrow">Welcome To Gachok Transport LTD.</div>
+      <h1>Reliable Transportation You Can Trust.</h1>
+      <p class="lede">Every journey creates opportunity. At Gachok Transport LTD, we are commited to providing safe, comfortable and dependable transportation that connects people, strengthens communities, and moves Nigeria forward.</p>
+      <div class="hero-ctas">
+        <a href="register.html" class="btn btn-accent home-account-cta">Create your account</a>
+        <a href="login.html" class="btn btn-ghost home-auth-btn home-contact-cta" data-auth-action="signin">Sign in</a>
+      </div>
+      <div class="hero-stats">
+        <div class="hero-stat"><div class="hero-stat-num" id="statShuttles">37</div><div class="hero-stat-label">Active Shuttles: en route</div></div>
+        <div class="hero-stat"><div class="hero-stat-num">96.4%</div><div class="hero-stat-label">On-Time Departure Rate</div></div>
+        <div class="hero-stat"><div class="hero-stat-num">81.3%</div><div class="hero-stat-label">Fleet Utilization</div></div>
+        <div class="hero-stat"><div class="hero-stat-num">14</div><div class="hero-stat-label">Hubs Connected</div></div>
+      </div>
+    </div>
+
+    <div class="route-diagram">
+      <div class="route-diagram-top">
+        <span class="route-diagram-badge">Operations live</span>
+        <span class="route-diagram-clock" id="liveClock">UTC 00:00:00</span>
+      </div>
+      <svg class="route-line-svg" viewBox="0 0 440 70" aria-hidden="true">
+        <path class="route-line-path" d="M8,60 C 140,10 300,110 432,55"/>
+        <path class="route-line-progress" d="M8,60 C 140,10 300,110 432,55"/>
+        <circle class="route-vehicle-dot" r="5"/>
+        <circle cx="8" cy="60" r="5" fill="#2FB6E0"/>
+        <circle cx="432" cy="55" r="5" fill="#2FB6E0"/>
+      </svg>
+      <div class="route-endpoints">
+        <div class="route-endpoint">
+          <div class="route-endpoint-code">AN</div>
+          <div class="route-endpoint-city">ANAMBRA</div>
+        </div>
+        <div class="route-endpoint end">
+          <div class="route-endpoint-code">LAG</div>
+          <div class="route-endpoint-city">LAGOS</div>
+        </div>
+      </div>
+      <div class="route-diagram-meta">
+        <div>Flagship route<strong>AN ⇄ LAG</strong></div>
+        <div>Distance<strong>750 km</strong></div>
+        <div>Scheduled duration<strong>9h 00m</strong></div>
+        <div>Vehicle<strong>Coaster</strong></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="container">
+  <div class="search-card">
+    <div class="eyebrow">Your Journey. Our Mission.</div>
+    <h2 style="margin-bottom:6px;">Where would you like to ride?</h2>
+    <div class="search-tabs">
+      <button type="button" class="search-tab active" id="tabOneWay">One way</button>
+      <button type="button" class="search-tab" id="tabRoundTrip">Round trip</button>
+    </div>
+    <form id="searchForm" class="search-grid">
+      <div class="field">
+        <label for="fromHub">From</label>
+        <select id="fromHub" required></select>
+      </div>
+      <div class="field field-swap">
+        <button type="button" class="swap-btn" id="swapHubs" aria-label="Swap origin and destination">⇄</button>
+      </div>
+      <div class="field">
+        <label for="toHub">To</label>
+        <select id="toHub" required></select>
+      </div>
+      <div class="field">
+        <label for="rideDate">Departure date</label>
+        <input type="date" id="rideDate" required>
+      </div>
+      <div class="field" id="returnDateWrap" style="display:none;">
+        <label for="returnDate">Return date</label>
+        <input type="date" id="returnDate">
+      </div>
+      <div class="field">
+        <label for="vehicleClass">Vehicle class</label>
+        <select id="vehicleClass"></select>
+      </div>
+      <div class="field">
+        <label>Passengers</label>
+        <div class="stepper">
+          <button type="button" id="paxMinus">−</button>
+          <span id="paxCount">1</span>
+          <button type="button" id="paxPlus">+</button>
+        </div>
+      </div>
+      <div class="field">
+        <label>&nbsp;</label>
+        <button type="submit" class="btn btn-primary btn-block">Search rides</button>
+      </div>
+      <p class="pax-note">Up to 8 passengers per booking. Charter the full vehicle from the Group Shuttle Van or Charter Minibus classes.</p>
+    </form>
+  </div>
+</div>
+
+<section class="section section--tight">
+  <div class="container">
+    <div class="section-head">
+      <div>
+        <div class="eyebrow">Why Gachok?</div>
+        <h2>Built on trust. Driven by precision.</h2>
+        <p class="lede">Every route strengthens communities, every journey creates opportunity, and every rider places their trust in us.</p>
+      </div>
+    </div>
+    <div class="grid-4" id="whyChooseGrid"></div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="section-head">
+      <div>
+        <div class="eyebrow">Global route network</div>
+        <h2>Explore popular routes &amp; hubs</h2>
+        <p class="lede">From high-frequency regional shuttles to long-haul flagship legs. Pick any route to see live pricing across scheduled dates.</p>
+      </div>
+      <a href="search.html?from=LAG&amp;to=IBA" class="btn btn-outline">Browse all 14 hubs</a>
+    </div>
+    <div class="grid-4" id="routeCards"></div>
+  </div>
+</section>
+
+<section class="section section--alt">
+  <div class="container">
+    <div class="split-panel">
+      <div class="split-media">
+        <img src="New folder\terminal.jpg" alt="Gachok Terminal" class="media-illustration" >
+        <div class="overlay-card">
+          <div class="icon-feature-badge" id="overlayIcon"></div>
+          <div>
+            <h4>Our People</h4>
+            <p>Dedicated dispatchers and drivers working together every day.</p>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="eyebrow">About us</div>
+        <h2>Building the future of transportation</h2>
+        <p class="lede">We believe transportation is more than moving people from one destination to another. It's about connecting opportunities, supporting businesses, reuniting families,  one contributing to the economc growtg. Every vehicle we operate and every journeywe undertake reflects our commitment to trust, professionalism, and operational excellence.</p>
+        <a href="about.html" class="btn btn-primary">Learn more about us →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section--alt">
+  <div class="container">
+    <div class="section-head">
+      <div>
+        <div class="eyebrow">Fleet showcase</div>
+        <h2>Built for every party size</h2>
+        <p class="lede">Every vehicle in our fleet is inspected before dispatch, with class-specific comfort and pricing.</p>
+      </div>
+    </div>
+    <div class="fleet-tabs" id="fleetTabs"></div>
+    <div class="fleet-panel" id="fleetPanel"></div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="section-head">
+      <div>
+        <div class="eyebrow">Our services</div>
+        <h2>Transportation solutions tailored for you</h2>
+        <p class="lede">From daily commuter shuttles to full logistics runs, Gachok covers every kind of trip.</p>
+      </div>
+      <a href="services.html" class="btn btn-outline">Explore all services →</a>
+    </div>
+    <div class="services-grid" id="servicesPreviewGrid"></div>
+  </div>
+</section>
+
+<section class="section section--alt">
+  <div class="container">
+    <div class="cta-banner">
+      <div class="cta-banner-left">
+        <div class="icon-feature-badge" id="ctaIcon"></div>
+        <div>
+          <h3>Ready to start your journey?</h3>
+          <p>Book your trip today and let us take you there safely, comfortably and on time.</p>
+        </div>
+      </div>
+      <div class="cta-banner-actions">
+        <a href="#searchForm" class="btn btn-accent">Book Your Trip →</a>
+        <a href="about.html" class="btn btn-outline">Contact Us</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="section-head">
+      <div>
+        <div class="eyebrow">Algorithmic transparency</div>
+        <h2>How demand-based fares work</h2>
+        <p class="lede">Just like a commercial ride network, Gachok prices each seat in real time using how soon you're travelling, how full the ride is, and your vehicle class.</p>
+      </div>
+    </div>
+    <div class="calc-panel">
+      <div class="calc-inputs">
+        <div class="calc-group">
+          <div class="calc-group-label">Hours to departure <span class="value" id="calcHoursVal">24 hrs</span></div>
+          <input type="range" id="calcHours" min="1" max="336" value="24">
+          <div class="range-ticks"><span>1h (last-minute)</span><span>10+ days (early-bird)</span></div>
+        </div>
+        <div class="calc-group">
+          <div class="calc-group-label">Ride load factor <span class="value" id="calcLoadVal">65%</span></div>
+          <input type="range" id="calcLoad" min="10" max="100" value="65">
+          <div class="range-ticks"><span>10% (quiet)</span><span>75% (surge)</span><span>100% (peak)</span></div>
+        </div>
+        <div class="calc-group">
+          <div class="calc-group-label">Vehicle class</div>
+          <div class="chip-row" id="calcVehicleChips"></div>
+        </div>
+        <div class="calc-group" style="margin-bottom:0;">
+          <div class="calc-group-label">Seat tier</div>
+          <div class="chip-row" id="calcTierChips"></div>
+        </div>
+      </div>
+      <div class="calc-output">
+        <div class="eyebrow">Live fare quote</div>
+        <div class="calc-line"><span>Base reference fare</span><span class="mono" id="outBase">NGN 4,200</span></div>
+        <div class="calc-line"><span>Advance-booking multiplier</span><span class="mono" id="outAdv">× 1.00</span></div>
+        <div class="calc-line"><span>Demand load multiplier</span><span class="mono" id="outDem">× 1.08</span></div>
+        <div class="calc-line"><span>Vehicle class multiplier</span><span class="mono" id="outCls">× 1.0</span></div>
+        <div class="calc-line"><span>Derived adult fare</span><span class="mono" id="outPerSeat">NGN 0</span></div>
+        <div class="calc-line"><span>Seat tier add-on</span><span class="mono" id="outTier">+NGN 0</span></div>
+        <div class="calc-line"><span>VAT (7.5%)</span><span class="mono" id="outVat">+NGN 0</span></div>
+        <div class="calc-line"><span>Booking service charge</span><span class="mono" id="outSvc">+NGN 1,500</span></div>
+        <div class="calc-line total"><span>Total price</span><span id="outTotal">NGN 0</span></div>
+        <p class="calc-foot">All taxes &amp; fees included. Recalculates instantly as you move the sliders.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section--alt">
+  <div class="container">
+    <div class="section-head">
+      <div>
+        <div class="eyebrow">Rider capabilities</div>
+        <h2>Everything a shuttle network does, engineered with precision</h2>
+      </div>
+    </div>
+    <div class="grid-4">
+      <div><h3>Search a live schedule</h3><p>Fourteen days of departures across fourteen hubs, filtered by route, date, class and party size.</p></div>
+      <div><h3>Pick your vehicle</h3><p>From compact sedans to full charter minibuses, with seat tiers for priority pickup, window or solo rows.</p></div>
+      <div><h3>Demand-based fares</h3><p>Prices respond to how far ahead you book and how full the ride already is, like a real shuttle network.</p></div>
+      <div><h3>Manage your trips</h3><p>Retrieve a booking by reference, view the itinerary, and cancel with an automatic refund calculation.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="section-head">
+      <div>
+        <div class="eyebrow">Rider feedback</div>
+        <h2>Trusted by daily commuters &amp; transit planners</h2>
+      </div>
+    </div>
+    <div class="grid-3">
+      <div class="quote-card">
+        <div class="quote-mark">"</div>
+        <div class="quote-title">Spot on fleet precision</div>
+        <p class="quote-body">Gachok captures the nuances of shuttle scheduling and demand-based pricing better than most transit software demos. The vehicle comparisons for sedans through charter minibuses are spot on.</p>
+        <div class="quote-person"><div class="avatar">TO</div><div><div class="quote-name">Tunde Oyelaran</div><div class="quote-role">Fleet Operations Analyst</div></div></div>
+      </div>
+      <div class="quote-card">
+        <div class="quote-mark">"</div>
+        <div class="quote-title">Textbook yield management</div>
+        <p class="quote-body">The advance-booking curve and load-factor multiplier give a textbook example of transit revenue management in action. Everything runs seamlessly and persistently in the browser.</p>
+        <div class="quote-person"><div class="avatar">NB</div><div><div class="quote-name">Dr. Ngozi Balogun</div><div class="quote-role">Transport Economics Researcher</div></div></div>
+      </div>
+      <div class="quote-card">
+        <div class="quote-mark">"</div>
+        <div class="quote-title">Completely authentic journey</div>
+        <p class="quote-body">From generating a unique booking reference to testing itinerary changes and calculating automated refunds, the end-to-end simulation feels completely authentic.</p>
+        <div class="quote-person"><div class="avatar">CO</div><div><div class="quote-name">Chidera Okonji</div><div class="quote-role">Daily Commuter &amp; Tech Lead</div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section--alt">
+  <div class="container">
+    <div class="section-head">
+      <div>
+        <div class="eyebrow">Frequently asked questions</div>
+        <h2>Everything you need to know about Gachok</h2>
+      </div>
+    </div>
+    <div id="faqList"></div>
+  </div>
+</section>
+
+<section class="section section--dark">
+  <div class="container">
+    <div class="section-head">
+      <div>
+        <div class="eyebrow">Instant testing credentials</div>
+        <h2>Prefer not to sign up? Borrow an account.</h2>
+        <p class="lede">Both demo roles are pre-seeded into your browser on first launch. The administrator can manage the route network, adjust fares, and inspect passenger manifests.</p>
+      </div>
+    </div>
+    <div class="demo-grid">
+      <div class="demo-card">
+        <div class="demo-card-top"><h3 style="margin:0;">Customer</h3><span class="demo-role-badge">Rider</span></div>
+        <div class="demo-field"><span>Email</span><span>customer@gachok.test</span></div>
+        <div class="demo-field"><span>Password</span><span>Passw0rd</span></div>
+      </div>
+      <div class="demo-card">
+        <div class="demo-card-top"><h3 style="margin:0;">Administrator</h3><span class="demo-role-badge">Admin</span></div>
+        <div class="demo-field"><span>Email</span><span>admin@gachok.test</span></div>
+        <div class="demo-field"><span>Password</span><span>Admin@123</span></div>
+      </div>
+    </div>
+    <div style="margin-top:34px; display:flex; gap:14px; flex-wrap:wrap; align-items:center;">
+      <a href="register.html" class="btn btn-accent home-account-cta">Create your account</a>
+      <a href="login.html" class="btn btn-ghost home-auth-btn home-contact-cta" data-auth-action="signin">Sign in</a>
+      <p style="margin:0; color:#8FA0C4; font-size:0.86rem;">Creating an account takes one form and never leaves your browser.</p>
+    </div>
+  </div>
+</section>
+
+<footer id="site-footer" class="site-footer"></footer>
+
+<script src="js/data.js"></script>
+<script src="js/icons.js"></script>
+<script src="js/store.js"></script>
+<script src="js/nav.js"></script>
+<script src="js/home.js"></script>
+</body>
+</html>

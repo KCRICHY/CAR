@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Sign in | Gachok</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header id="site-header" class="site-header"></header>
+
+<section class="page-hero">
+  <div class="container auth-shell" style="text-align:center;">
+    <div class="breadcrumb" style="justify-content:center; display:flex;">Welcome back</div>
+    <h1 style="font-size:2rem;">Sign in to Gachok</h1>
+    <p>Use your account, or one of the demo logins from the home page.</p>
+  </div>
+</section>
+
+<div class="container" style="padding:40px 24px;">
+  <div class="panel auth-shell">
+    <div class="form-error" id="loginError"></div>
+    <form id="loginForm">
+      <div class="field" style="margin-bottom:16px;"><label for="email">Email</label><input id="email" type="email" required></div>
+      <div class="field" style="margin-bottom:20px;"><label for="password">Password</label><input id="password" type="password" required></div>
+      <button type="submit" class="btn btn-primary btn-block">Sign in</button>
+    </form>
+    <p class="form-note" style="text-align:center; margin-top:18px;">No account yet? <a href="register.html" style="color:var(--route-blue); font-weight:600;">Register</a></p>
+  </div>
+</div>
+
+<footer id="site-footer" class="site-footer"></footer>
+
+<script src="js/data.js"></script>
+<script src="js/store.js"></script>
+<script src="js/nav.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  document.getElementById("loginForm").addEventListener("submit", (e) => {
+    e.preventDefault();
+    const email = document.getElementById("email").value.trim();
+    const password = document.getElementById("password").value;
+    const res = loginUser(email, password);
+    const errEl = document.getElementById("loginError");
+    if (!res.ok) { errEl.textContent = res.error; errEl.classList.add("show"); return; }
+    window.location.href = res.user.role === "admin" ? "admin.html" : "index.html";
+  });
+});
+</script>
+</body>
+</html>
